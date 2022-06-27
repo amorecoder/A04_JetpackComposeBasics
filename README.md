@@ -33,4 +33,8 @@ In this codelab, we will learn:
 17. Note that rememberSaveable can only support types that can be stored inside the Bundle. If it is not supported, then we need to create a custom Saver. For example, we can make the type parcelable using @Parcelize annotation. e.g.
         @Parcelize
         data class City(val name:String, val country:String) : Parcelable
-18. 
+18. MaterialTheme is a composable function that reflects the styling principles from the Material design specification. That styling information cascades down to the components that are inside its content, which may read the information to style themselves.
+19. Because A04_JetpackComposeBasicsTheme wraps MaterialTheme internally, MyApp is styled with the properties defined in the theme. From any descendant composable you can retrieve three properties of MaterialTheme: colors, typography and shapes.
+20. In general it's much better to keep our colors, shapes and font styles inside a MaterialTheme. For example, dark mode would be hard to implement if you hard-code colors and it would require a lot of error-prone work to fix. 
+21. However sometimes you need to deviate slightly from the selection of colors and font styles. In those situations it's better to base our color or style on an existing one. For this, we can modify a predefined style by using the copy function.
+22. 

@@ -13,10 +13,8 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -51,7 +49,9 @@ fun Greeting(name: String) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp)) // ensure it does not go negative value
             ) {
                 Text(text = "Hello,")
-                Text(text = name)
+                Text(text = name, style = MaterialTheme.typography.h4.copy(
+                    fontWeight = FontWeight.ExtraBold
+                ))
             }
             OutlinedButton(
                 onClick = { expanded = !expanded }
