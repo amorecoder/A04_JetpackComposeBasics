@@ -3,11 +3,17 @@ package com.example.a04_jetpackcomposebasics
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.a04_jetpackcomposebasics.ui.theme.A04_JetpackComposeBasicsTheme
@@ -15,6 +21,7 @@ import com.example.a04_jetpackcomposebasics.ui.theme.A04_JetpackComposeBasicsThe
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             A04_JetpackComposeBasicsTheme {
                 MyApp()
@@ -34,22 +41,27 @@ private fun MyApp(names: List<String> = listOf("World", "Compose")) {
 
 @Composable
 fun Greeting(name: String) {
-    // Surface allows us to set a different background color
+    val expanded = remember { mutableStateOf(false) }
+    val extraPadding = if(expanded.value) 48.dp else 0.dp // no need for remember since we already depends on another remember-ed state.
+
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
             // the weight modifier will push the button to the right
-            Column( modifier = Modifier.weight(1f) ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding)
+            ) {
                 Text(text = "Hello,")
                 Text(text = name)
             }
             OutlinedButton(
-                modifier = Modifier.shadow(elevation = 4.dp),
-                onClick = {  }
+                onClick = { expanded.value = !expanded.value }
             ) {
-                Text(text = "Show more")
+                Text(text = if(expanded.value) "Show less" else "Show more")
             }
         }
     }
