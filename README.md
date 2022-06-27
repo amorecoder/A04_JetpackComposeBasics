@@ -26,4 +26,5 @@ In this codelab, we will learn:
 11. In Composable functions, state that is read or modified by multiple functions should live in a common ancestor—this process is called state hoisting. To hoist means to lift or elevate. Making state hoistable avoids duplicating state and introducing bugs, helps reuse composables, and makes composables substantially easier to test. Contrarily, state that doesn't need to be controlled by a composable's parent should not be hoisted. The source of truth belongs to whoever creates and controls that state.
 12. In Compose you don't hide UI elements. Instead, you simply don't add them to the composition, so they're not added to the UI tree that Compose generates.
 13. LazyColumn doesn't recycle its children like RecyclerView. It emits new Composables as you scroll through it and is still performant, as emitting Composables is relatively cheap compared to instantiating Android Views.
-14. 
+14. The remember function works only as long as the composable is kept in the Composition. When we rotate, the whole activity is restarted so all state is lost. This also happens with any configuration change and on process death. Instead of using remember we can use rememberSaveable. This will save each state surviving configuration changes (such as rotations) and process death.
+15. 
