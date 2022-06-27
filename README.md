@@ -27,4 +27,10 @@ In this codelab, we will learn:
 12. In Compose you don't hide UI elements. Instead, you simply don't add them to the composition, so they're not added to the UI tree that Compose generates.
 13. LazyColumn doesn't recycle its children like RecyclerView. It emits new Composables as you scroll through it and is still performant, as emitting Composables is relatively cheap compared to instantiating Android Views.
 14. The remember function works only as long as the composable is kept in the Composition. When we rotate, the whole activity is restarted so all state is lost. This also happens with any configuration change and on process death. Instead of using remember we can use rememberSaveable. This will save each state surviving configuration changes (such as rotations) and process death.
-15. 
+15. The animateDpAsState composable returns a State object whose value will continuously be updated by the animation until it finishes. It takes a "target value" whose type is Dp.
+16. Use rememberSaveable to restore your UI state after an activity or process is recreated. rememberSaveable retains state across recompositions. In addition, rememberSaveable also retains state across activity and process recreation. e.g.
+        var selectedCity = rememberSaveable { mutableStateOf( City("Madrid", "Spain") ) }
+17. Note that rememberSaveable can only support types that can be stored inside the Bundle. If it is not supported, then we need to create a custom Saver. For example, we can make the type parcelable using @Parcelize annotation. e.g.
+        @Parcelize
+        data class City(val name:String, val country:String) : Parcelable
+18. 
